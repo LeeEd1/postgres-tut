@@ -3,7 +3,7 @@ from sqlalchemy import (
 )
 
 #executing the instructions from our localhost "chinook" db
-db = create_engine("posgresql:///chinook")
+db = create_engine("postgresql:///chinook")
 
 meta = MetaData(db)
 
