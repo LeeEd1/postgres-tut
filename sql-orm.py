@@ -20,7 +20,7 @@ class Artist(base):
 # create a class-based model for the "Album" table
 class Album(base):
     __tablename__ = "album"
-    album_id = column(Integer, primary_key=True)
+    album_id = Column(Integer, primary_key=True)
     Title = Column(String)
     artist_id = Column(Integer, ForeignKey("Artist.artist_id"))
 
@@ -28,13 +28,15 @@ class Album(base):
 # create a class-based model for the "Track" table
 class Track(base):
     __tablename__ = "Track"
-    track_id = Column(integer, primary_key=True)
+    track_id = Column(Integer, primary_key=True)
     Name = Column(String)
     album_id = Column(Integer, ForeignKey("Album.album_id"))
     MediaTypeId = Column(Integer, ForeignKey("Album.album_id"))
     GenreId = Column(Integer, primary_key=False)
     composer = Column(String)
-    mi
+    Milliseconds = Column(Integer, primary_key=False)
+    Bytes = Column(Integer, primary_key=False)
+    UnitPrice = Column(Float)
 
 
 # instead of connecting to the database directly directly, we will ask for a session
@@ -45,3 +47,9 @@ session = Session()
 
 # creating the database using declarative_base subclass
 base.metadata.create_all(db)
+
+
+# Query 1 - select all records form the "Artist" table
+artists = session.query(Artists)
+for artist in artists:
+    print(artist.artist_id, artist.Name, sep= "  |  ")
