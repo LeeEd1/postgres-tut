@@ -37,7 +37,7 @@ class Track(base):
     Milliseconds = Column(Integer, primary_key=False)
     Bytes = Column(Integer, primary_key=False)
     UnitPrice = Column(Float)
-    
+
 
 # instead of connecting to the database directly, we will ask for a session
 # create a new instance of sessionmaker, then point to our engine (the db)
@@ -48,7 +48,24 @@ session = Session()
 # creating the database using declarative_base subclass
 base.metadata.create_all(db)
 
+
 # Query 1 - select all records from the "Artist" table
 # artists = session.query(Artist)
 # for artist in artists:
-#   print(artist.artist_id, artist.name, sep=" | ")
+#  print(artist.artist_id, artist.name, sep=" | ")
+
+# Query 2 - select only the "name" column from the "Artist" table
+# artists = session.query(Artist)
+# for artist in artists:
+#     print(artist.name)
+
+# query 3 - select only "queen" from the "artist" table
+# Artist = session.query(Artist).filter_by(name="Queen").first()
+# print(Artist.artist_id, Artist.name, sep="  |  ")
+
+# query 4 - select only "artistid" #51 from the "artist" table
+Artist = session.query(Artist).filter_by(artist_id=51).first()
+print(Artist.artist_id, Artist.name, sep="  |  ")
+
+# query 5 - select only the albums with "artistid" # 51 on the "album" table
+albums = session.query(Album).filter_by(artist_id=51)
